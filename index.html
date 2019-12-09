@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>个人简历</title>
+		<script src="jquery-1.11.1.min.js"></script>
+		<script src="jquery.mousewheel.min.js"></script>
+		<style>
+			/* 通用样式 */
+			*{margin:0;padding:0;}
+			li{list-style:none;}
+			a{text-decoration:none;}			
+			.wrap{width:100%;overflow:hidden;position:relative;}
+			.wrap>.fix{width:70px;height:210px;position:fixed;top:247px;right:0px;z-index:2;}
+			.wrap>.fix>p{width:70px;height:41px;}
+			.wrap>.fix>p>a{line-height:41px;text-align:center;color:#7B889C}
+			.wrap>.box{width:100%;position:absolute;top:0;left:0;}
+			.wrap>.box>.header{width:100%;height:695px;background:url(imgs/5.jpg) no-repeat;position:relative;}
+			.wrap>.box>.header>.h-left{width:530px;height:695px;float:left;}
+			.wrap>.box>.header>.h-left>img{width:513px;height:695px;position:absolute;left:-700px;opacity:0;}
+			.wrap>.box>.header>.h-right{width:650px;height:200px;position:absolute;right:-800px;opacity:0;}
+			.wrap>.box>.header>.h-right>p{color:#727E94;}
+			.wrap>.box>.header>.h-right>p.br-mid{font-size:70px;}
+			.wrap>.box>.header>.h-right>p.br-mid>span{color:#373A41;}
+			.wrap>.box>.header>.h-right>a>p{width:140px;height:35px;background:#fff;line-height:35px;text-align:center;border-radius:40px;color:#727E94;font-size:15px;position:absolute;top:135px;right:62px;}
+			.wrap>.box>.header>.h-right>a>p:hover{background:#373A41;color:#fff;}
+			.wrap>.box>.one{width:100%;height:695px;background:#FAFAFA;position:relative;}
+			.wrap>.box>.one>.o-left{width:40%;height:500px;position:absolute;left:-700px;opacity:0;}
+			.wrap>.box>.one>.o-left>.ol-up{width:50px;height:600px;float:left;/* margin-top:82px; */}
+			.wrap>.box>.one>.o-left>.ol-up>img{height:200px;margin-top:85px;}
+			.wrap>.box>.one>.o-left>.ol-down{width:480px;height:75px;float:right;/* margin-top:90px; */margin-right:16px;}
+			.wrap>.box>.one>.o-left>.ol-down>p{color:#9C9C9C;font-size:15px;position:absolute;top:85px;left:55px;}
+			.wrap>.box>.one>.o-left>hr{background:#E0ECF0;margin-top:175px;}
+			.wrap>.box>.one>.o-left>ul{width:539px;height:100px;margin-top:40px;}
+			.wrap>.box>.one>.o-left>ul>li{width:100%;height:35px;font-size:16px;}
+			.wrap>.box>.one>.o-left>ul>li>a>p{width:100%;height:35px;line-height:35px;color:#444;font-size:14px;}
+			.wrap>.box>.one>.o-left>ul>li>a>p>span{margin-left:310px;}
+			.wrap>.box>.one>.o-left>ul>li.ol-one{display:none;}
+			.wrap>.box>.one>.o-right{width:40%;height:100%;position:absolute;right:-700px;opacity:0;margin-right:50px;}
+			.wrap>.box>.one>.o-right>p{color:#B0B0B0;margin-top:140px;margin-left:442px;font-size:14px}
+			.wrap>.box>.one>.o-right>img{margin-top:40px;width:500px;}
+			.wrap>.box>.one>.o-right>ul>li>a>p>span{margin-left:310px;}
+			.wrap>.box>.two{width:100%;height:695px;position:relative;}
+			.wrap>.box>.two>.t-left{width:41%;height:100%;position:absolute;left:-700px;opacity:0;}
+			.wrap>.box>.two>.t-left>span{font-size:14px;}
+			.wrap>.box>.two>.t-left>.tl-on{width:80%;height:600px;}
+			.wrap>.box>.two>.t-left>.tl-on>p{margin-left:65px;}
+			.wrap>.box>.two>.t-left>.tl-on>p.tl-of{margin-left:400px;}
+			#img{margin-left:275px;width:235px;margin-top:-100px;}
+			#imgs{width:235px;margin-top:50px;}
+			.wrap>.box>.two>.t-right{width:42%;height:100%;position:absolute;right:-700px;opacity:0;}
+			.wrap>.box>.two>.t-right>img{width:35px;height:200px;float:left;margin-top:50px}
+			.wrap>.box>.two>.t-right>.tr-on{width:530px;height:500px;float:right;}
+			.wrap>.box>.two>.t-right>.tr-on>p{color:#9C9C9C;font-size:14px;margin-top: 50px;}
+			.wrap>.box>.two>.t-right>.tr-on>p>span{margin-left:400px;}
+			.wrap>.box>.two>.t-right>.tr-on>ul{margin-top: 80px;}
+			.wrap>.box>.two>.t-right>.tr-on>ul>li{float:left;margin-left:30px;}
+			.wrap>.box>.three{width:100%;height:695px;position:relative;background:#FAFAFA;}
+			.wrap>.box>.three>.tt-left{width:42%;height:400px;position:absolute;left:-700px;opacity:0;}
+			.wrap>.box>.three>.tt-left>img{width:40px;height:200px;float:left}
+			.wrap>.box>.three>.tt-left>p{width:515px;height:100px;float:right;color:#9C9C9C;font-size:14px;}
+			.wrap>.box>.three>.tt-left>p>span{margin-left:380px;}	
+			.wrap>.box>.three>.tt-right{width:40%;height:530px;position:absolute;right:-700px;opacity:0;}
+			.wrap>.box>.three>.tt-right>ul{width:530px;height:500px;}
+			.wrap>.box>.three>.tt-right>ul>li{width:530px;height:120px;float:left}
+			.wrap>.box>.three>.tt-right>ul>li>span{margin-left:40px;margin-top:30px;}
+			.wrap>.box>.three>.tt-right>ul>li>p{margin-left:60px;color:#9C9C9C;font-size:14px;margin-top:20px;}
+			.wrap>.box>.footer{width:100%;height:695px;position:relative;} 
+			.wrap>.box>.footer>.f-left{width:40%;height:500px;position:absolute;left:-700px;opacity:0;}
+			.wrap>.box>.footer>.f-left>p{color:#9C9C9C;font-size:14px;margin-bottom:20px;}
+			.wrap>.box>.footer>.f-left>input{width:500px;height:50px;background:#EFF5F7;margin-top:10px;border:0;}
+			.wrap>.box>.footer>.f-left>.ff-on{width:110px;height:40px;background:#3C3C3C;line-height:40px;text-align:center;margin-top:20px;color:#fff;}
+			.wrap>.box>.footer>.f-left>.ff-on:hover{background:#EFF5F7;}
+			.wrap>.box>.footer>.f-right{width:42%;height:500px;position:absolute;right:-700px;opacity:0;}
+			.wrap>.box>.footer>.f-right>img{width:40px;height:200px;float:left;}
+			.wrap>.box>.footer>.f-right>.ffr{width:500px;height:200px;margin-left:65px;}
+			.wrap>.box>.footer>.f-right>.ffr>p{color:#9C9C9C;font-size:14px;height:25px;line-height:25px;}
+			.wrap>.box>.footer>.f-right>.ffr>.ffr-top{margin-top:60px;}
+			.wrap>.box>.footer>.f-right>.ffr-right{width:500px;height:200px;float:left;margin-left:65px;}
+			.wrap>.box>.footer>.f-right>.ffr-right>img{width:200px;height:55px;margin-left:300px;margin-top:10px;}
+			.wrap>.box>.footer>.f-right>.ffr-right>p{color:#9C9C9C;font-size:14px;height:25px;line-height:25px;float:right;}
+			.wrap>.box>.footer>.f-right>.ffr-right>.ft{margin-top:70px;}
+
+		</style>
+	</head>
+	<body>
+		<div class="wrap">
+			<div class="fix">
+				<p><a class="active">简历-</a></p>
+				<p><a>关于-</a></p>
+				<p><a>作品-</a></p>
+				<p><a>能力-</a></p>
+				<p><a>联系-</a></p>
+			</div>
+			<div class="box">
+				<div class="header">
+					<div class="h-left"><img src="imgs/1.png" alt=""></div>
+					<div class="h-right">
+						<p>简单的设计是执行&nbsp;&nbsp;&nbsp;伟大的设计是传承</p>
+						<p class="br-mid">设计. <span>源于生活</span></p>
+						<a><p>About me</p></a>
+					</div>
+				</div>
+				<div class="one">
+					<div class="o-left">
+						<div class="ol-up"><img src="imgs/2.png" alt=""></div>
+						<div class="ol-down">
+							<p>在校期间曾系统的学习过平面构成、色彩构成、图案造型、字体设计、标志设计等方面的课程,
+						能熟练运用DIV+CSS. HTML ,可以独立完成网站前台页面设计。</p>
+						</div><hr>
+						
+						<ul>
+							<li><img src="imgs/6.png" alt="">&nbsp;&nbsp;&nbsp;教育经历</li>
+							<li><a href=""><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上海传媒大学 — 硕士<span>&gt;</span></p></a></li>
+							<li class="ol-one"><p>20010.09-2014.06 
+在校期间曾系统的学习过平面构成、色彩构成、图案造型、字体设计、标志设计等方面的课程,能熟练运用DIV+CSS. HTML ,熟悉各种浏览器的兼容熟练运用photoshop. dreamwerver.flash. coreldraw 软件。</p></li>
+							<li><a href=""><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上海传媒大学 — 本科<span>&gt;</span></p></a></li>
+							<li class="ol-one"><p>20010.09-2014.06 
+在校期间曾系统的学习过平面构成、色彩构成、图案造型、字体设计、标志设计等方面的课程,能熟练运用DIV+CSS. HTML ,熟悉各种浏览器的兼容熟练运用photoshop. dreamwerver.flash. coreldraw 软件。</p></li>
+						</ul>
+						<ul>
+							<li><img src="imgs/10.png" alt="">&nbsp;&nbsp;&nbsp;工作经历</li>
+							
+							<li><a href=""><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;科技网络有限公司<span>&nbsp;&nbsp;&nbsp;&nbsp;&gt;</span></p></a></li>
+							
+							<li class="ol-one"></li>
+							
+							<li><a href=""><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;综合部美工主管<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&gt;</span></p></a></li>
+							
+							<li class="ol-one"></li>
+						
+						</ul>
+					</div>
+					<div class="o-right">
+						<p>个人介绍</p>
+						<img src="imgs/3.png" alt="">
+					</div>
+				</div>
+				
+				<div class="two">
+					<div class="t-left">
+						<span>—————</span><span>作品欣赏</span>
+						<div class="tl-on">
+							<img src="imgs/11.png" alt=""id="imgs">
+							<p>Photography</p>
+							<img src="imgs/9.png" alt="" id="img">
+							<p class="tl-of">Branding</p>
+						</div>
+					</div>
+					
+					<div class="t-right">
+						<img src="imgs/16.png" alt="">
+						<div class="tr-on">
+							<p>在校期间曾系统的学习过平面构成、色彩构成、图案造型、字体设计、标志设计等方面的课程,能熟练运用DIV+CSS. HTML ,可以独立完成网站前台页面设计。</p>
+							<p>学校是有计划、有组织地进行系统的教育的组织机构。名称起源于民国。学校教育是由专职人员和专门机构承担的有目的、有系统、有组织的，以影响受教育学校教育者的身心发展为直接目标的社会活动。</p>
+							<p><span>————</span>作品概述</p>
+							<ul>
+								<li><img src="imgs/3.jpg" alt=""></li>
+								<li><img src="imgs/2.jpg" alt=""></li>
+								<li><img src="imgs/1.jpg" alt=""></li>
+								<li><img src="imgs/4.jpg" alt=""></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<div class="three">
+					<div class="tt-left">
+						<img src="imgs/17.png" alt="">
+						<p>
+						在校期间曾系统的学习过平面构成、色彩构成、图案造型、字体设计、标志设计等方面的课程,能熟练运用DIV+CSS. HTML ,可以独立完成网站前台页面设计。</p>
+						<p>学校是有计划、有组织地进行系统的教育的组织机构。名称起源于民国。学校教育是由专职人员和专门机构承担的有目的、有系统、有组织的，以影响受教育学校教育者的身心发展为直接目标的社会活动。</p>
+						<p><span>————</span>技能介绍</p>
+					</div>
+					<div class="tt-right">
+						<ul>
+							<li><img src="imgs/5.png" alt=""><span>网站设计</span><p>熟练运用DIV+CSS. HTML ,熟悉各种浏览器的兼容熟练运用photoshop. dreamwerver.flash. coreldraw 软件,可以独立完成网站前台页面设计。</p></li>
+							<li><img src="imgs/12.png" alt=""><span>UI/UX设计</span><p>熟练运用DIV+CSS. HTML ,熟悉各种浏览器的兼容熟练运用photoshop. dreamwerver.flash. coreldraw 软件,可以独立完成网站前台页面设计。</p></li>
+							<li><img src="imgs/14.png" alt=""><span>LOGO设计</span><p>熟练运用DIV+CSS. HTML ,熟悉各种浏览器的兼容熟练运用photoshop. dreamwerver.flash. coreldraw 软件,可以独立完成网站前台页面设计。</p></li>
+							<li><img src="imgs/13.png" alt=""><span>插画设计</span><p>熟练运用DIV+CSS. HTML ,熟悉各种浏览器的兼容熟练运用photoshop. dreamwerver.flash. coreldraw 软件,可以独立完成网站前台页面设计。</p></li>
+							
+						</ul>
+					</div>
+				</div>
+				<div class="footer">
+					<div class="f-left">
+						<p><span>————</span>招聘留言</p>
+						<input type="text" placeholder="姓名*"><br>
+						<input type="text" placeholder="邮箱*"><br>
+						<input type="text" placeholder="电话"><br>
+						<input type="text" placeholder="内容*"><br>
+						<p class="ff-on">Send</p>
+					</div>
+					<div class="f-right">
+							<img src="imgs/15%20.png" alt="">
+							<div class="ffr">
+								<p>在校期间曾系统的学习过平面构成、色彩构成、图案造型、字体设计、标志设计等方面的课程,能熟练运用DIV+CSS. HTML ,可以独立完成网站前台页面设计</p>
+
+								<p class="ffr-top">地址：中国江苏省苏州市姑苏区观前街三五号</p>
+								<p>邮箱：hellooo@qifeiye.com</p>
+								<p>电话：+86 800 400 12345</p>
+							</div>
+							
+						<div class="ffr-right">
+							<p><span>————</span>UI/UX & Web Designer</p>
+							<img src="imgs/7.png" alt="">
+							<p class="ft">Copyright  © 2019  设计师个人简历模板  All rights reserved.</p>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		
+		<script>
+			$(function(){
+				var index=0;
+				$('.h-left img').animate({left:'150px',opacity:'1'},1000)
+				$('.h-right').animate({right:'0px',top:'312px',opacity:'1'},1000)
+				
+				var aHeight = $(document).height()//695
+				$('.wrap').css({height:aHeight+'px'})
+				// $('.wrap').css('height','aHeight');
+				$('header').children('div').css({height:aHeight+'px'});
+				// console.log(aHeight);
+				var flag=true;
+				$(document).mousewheel(function(e){
+					if(flag==true){
+						flag=false;
+						if(e.deltaY>0)
+							{
+								index--;
+								if(index<0){
+									index=0;	
+							}
+							var atop =-aHeight * index+'px';
+							// console.log(top);
+							$('.box').animate({top:atop},1000,function(){ flag=true});	
+						}
+						
+						else if(e.deltaY<0){
+								index++;
+								if(index>4){
+									index=4;
+								}$('.fix').click(function(){
+					$('.wrap .fix p a').eq(index).show().sibligns().hide();
+				})
+								
+								var atop =-aHeight * index +'px';	
+								// console.log(atop);
+
+								$('.o-left').animate({left:'115px',top:'50px',opacity:'1'},1000)
+								$('.o-right').animate({right:'0px',opacity:'1'},1000)
+								if(index==2){
+									$('.t-left').animate({left:'100px',top:'100px',opacity:'1'},1000)
+									$('.t-right').animate({right:'100px',top:'100px',opacity:'1'},1000)
+								}
+								if(index==3){
+									$('.tt-left').animate({left:'80px',top:'160px',opacity:'1'},1000)
+									$('.tt-right').animate({right:'80px',top:'160px',opacity:'1'},1000)
+								}
+								if(index==4){
+									$('.f-left').animate({left:'85px',top:'160px',opacity:'1'},1000)
+									$('.f-right').animate({right:'75px',top:'160px',opacity:'1'},1000)
+								}
+								$('.box').animate({top:atop},1000,function(){ flag=true});
+						}
+					}	
+				})	
+			})	
+		</script>
+	</body>
+</html>

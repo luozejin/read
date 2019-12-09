@@ -1,0 +1,11 @@
+/* 通用样式 */
+*{margin:0;padding:0;}
+li{list-style:none;}
+a{text-decoration:none;}
+
+/* 头部样式 */
+.wrap{width:1500px;height:100%;background:darkgoldenrod;}
+
+/* 主体样式 */
+
+/* 尾部样式 */
